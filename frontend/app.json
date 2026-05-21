@@ -20,7 +20,12 @@
       }
     },
     "android": {
-      "package": "com.malik987.rasai"
+      "package": "com.malik987.rasai",
+      "config": {
+        "googleMaps": {
+          "apiKey": "YOUR_GOOGLE_MAPS_API_KEY_HERE"
+        }
+      }
     }
   }
 }

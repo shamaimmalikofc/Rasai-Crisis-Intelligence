@@ -22,6 +22,7 @@ import { MapView, Marker, Polyline } from './MapViewComponent';
 // Replace 'localhost' with your computer's local IP address (e.g., 'http://192.168.10.25:5000').
 // Run `ipconfig` (Windows) or `ifconfig` (Mac) to find your local IP address.
 const BACKEND_URL = 'https://rasai-backend-152856278316.us-central1.run.app';
+const ENABLE_NATIVE_MAPS = false; // Set true only after native maps are tested successfully
 
 // Mock Coordinates for the Web fallback vector map
 const MAP_MARKERS = {
@@ -590,7 +591,7 @@ export default function App() {
 
       {/* Main Interactive Map (Native View vs Premium Fallback Web View) */}
       <View style={styles.mapFrame}>
-        {Platform.OS !== 'web' && MapView ? (
+        {Platform.OS !== 'web' && MapView && ENABLE_NATIVE_MAPS ? (
           <MapView
             ref={mapRef}
             style={styles.map}
