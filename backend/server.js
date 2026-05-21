@@ -39,13 +39,17 @@ if (isWeatherApiAvailable) {
   console.log('⚠️ OPENWEATHER_API_KEY not set. Running weather with static simulator stubs.');
 }
 
-// Helper to fetch live weather from OpenWeatherMap (with robust fallback)
-async function fetchLiveWeather(lat, lon) {
+// Helper to fetch live weather from OpenWeatherMap (supports coordinates or city query)
+async function fetchLiveWeather(lat, lon, city = null) {
   if (!isWeatherApiAvailable) {
     return null;
   }
   try {
-    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${openWeatherApiKey}&units=metric`;
+    const baseUrl = 'https://api.openweathermap.org/data/2.5/weather';
+    const query = (lat != null && lon != null)
+      ? `lat=${lat}&lon=${lon}`
+      : `q=${encodeURIComponent(city || 'karachi')}`;
+    const url = `${baseUrl}?${query}&appid=${openWeatherApiKey}&units=metric`;
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`OpenWeather API returned status ${response.status}`);
